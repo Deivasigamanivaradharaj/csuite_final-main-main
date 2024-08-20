@@ -8,6 +8,8 @@ import axios from "axios";
 import LoadingPage from "../LoadingPage/LoadingPage";
 import ErrorDataFetchOverlay from "../Error/ErrorDataFetchOverlay";
 import { fetchUserData } from "../../../api/baseapi";
+import defaultPorfileSVG from "../Assets/SVG/defaultPorfileSVG.svg";
+import defaultBannerSVG from "../Assets/SVG/defaultBannerSVG.svg";
 
 const Profile = () => {
   const [isEditing, setIsEditing] = useState(false);
@@ -249,7 +251,7 @@ const Profile = () => {
   };
 
   const inputClassName = (value) => {
-    if (value === "" || value === null) {
+    if (value === "" || value === null || value === undefined) {
       return "error-border";
     }
     return "";
@@ -271,7 +273,14 @@ const Profile = () => {
     <div className="profileContainer">
       <div className="profileBannerBox">
         <div className="profileBGBox">
-          <img src={profileData?.profileBanner} alt="" />
+          <img
+            src={
+              profileData?.profileBanner
+                ? profileData?.profileBanner
+                : defaultBannerSVG
+            }
+            alt="Banner"
+          />
           {isEditing && (
             <label className="custom-file-upload imageBanner">
               <input
@@ -286,7 +295,15 @@ const Profile = () => {
         </div>
         <div className="profileHeader">
           <div className="profileImage">
-            <img src={profileData?.profilePic} alt="Profile" className="" />
+            <img
+              src={
+                profileData?.profilePic
+                  ? profileData?.profilePic
+                  : defaultPorfileSVG
+              }
+              alt="Profile"
+              className="defaultImage"
+            />
             {isEditing && (
               <label className="custom-file-upload">
                 <input
